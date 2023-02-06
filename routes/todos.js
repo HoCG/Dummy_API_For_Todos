@@ -85,9 +85,10 @@ router.route('/')
     try {
       //INSERT INTO nodejs.users (name, age, married) VALUES (req.body.name, req.body.age, req.body.married);
       //얘네 다 Promise임. await 붙여줘야함.
+      console.log(req.body);
       const todo = await Todo.create({
-        title: req.body.title,
-        description: req.body.description
+        title: req.body.todo.title,
+        description: req.body.todo.description
       });
       console.log(todo);
       res.status(201).json(todo);
