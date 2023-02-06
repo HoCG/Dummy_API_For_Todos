@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const dotenv = require('dotenv');
+const cors = require('cors');
 const morgan = require('morgan');
 
 dotenv.config();
@@ -11,6 +12,11 @@ const { sequelize } = require('./models');
 
 const app = express();
 app.set('port', process.env.PORT || 3030);
+app.use(cors({
+  origin: ['http://localhost:3000', 'http://127.0.0.1:5173'], // 출처 허용 옵션
+  credentials: true, // 사용자 인증이 필요한 리소스(쿠키 ..등) 접근
+  exposedHeaders: ["Authorization"],
+}));
 sequelize.sync({ force: false })
   .then(() => {
     console.log('데이터베이스 연결 성공');
