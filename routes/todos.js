@@ -109,6 +109,18 @@ router.get('/:id', async (req, res, next) => {
     console.error(err);
     next(err);
   }
+})  
+.delete('/:id', async (req, res, next) => {
+  try {
+    const todo = await Todo.destroy({
+      where: { id : req.params.id }
+    });
+    console.log(todo);
+    res.status(201).json(todo);
+  } catch(err) {
+    console.error(err);
+    next(err);
+  }
 });
 
 module.exports = router;
